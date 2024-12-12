@@ -10,12 +10,12 @@
     <style>
         .main-container {
             display: flex;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .sidebar {
             width: 260px;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .content {

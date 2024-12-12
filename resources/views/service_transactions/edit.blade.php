@@ -11,12 +11,12 @@
     <style>
         .main-container {
             display: flex;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .sidebar {
             width: 260px;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .content {
@@ -136,13 +136,13 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Teknisi</td>
+                                        <td>Cashier</td>
                                         <td>:</td>
                                         <td>
                                             <select name="technician_id" class="form-control" required>
-                                                <option value="">Select Technician</option>
-                                                @foreach($technicians as $technician)
-                                                <option value="{{ $technician->id }}" {{ $serviceTransaction->technician_id == $technician->id ? 'selected' : '' }}>{{ $technician->name }}</option>
+                                                <option value="">Select Cashier</option>
+                                                @foreach($cashiers as $cashier)
+                                                <option value="{{ $cashier->id }}" {{ $serviceTransaction->cashier_id == $cashier->id ? 'selected' : '' }}>{{ $cashier->name }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
@@ -163,21 +163,15 @@
                                         </td>
                                         <td colspan="2"></td>
                                     </tr>
-                                    <tr>
-                                        <td>Tgl Keluar</td>
-                                        <td>:</td>
-                                        <td><input type="date" name="takeout_date" id="takeout_date" class="form-control" value="{{ $serviceTransaction->takeout_date }}" required></td>
-                                        <td colspan="6"></td>
-                                    </tr>
                                 </table>
                                 <br><br>
                             </td>
                         </tr>
                         <tr>
-                            <td>Pelanggan & Laptop <br><br>
+                            <td>Customer<br><br>
                                 <table class="no-border">
                                     <tr>
-                                        <td>Pelanggan</td>
+                                        <td>Customer</td>
                                         <td>:</td>
                                         <td>
                                             <select name="customer_id" id="customer_id" class="form-control" required>
@@ -187,25 +181,6 @@
                                                 @endforeach
                                             </select>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Laptop</td>
-                                        <td>:</td>
-                                        <td>
-                                            <select name="laptop_id" id="laptop_id" class="form-control" required>
-                                                <option value="">Select Laptop</option>
-                                                @foreach($customers as $customer)
-                                                    @foreach($customer->laptops as $laptop)
-                                                    <option value="{{ $laptop->id_laptop }}" data-customer-id="{{ $customer->customer_id }}" {{ $serviceTransaction->laptop_id == $laptop->id_laptop ? 'selected' : '' }}>{{ $laptop->laptop_brand }}</option>
-                                                    @endforeach
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deskripsi Masalah</td>
-                                        <td>:</td>
-                                        <td><textarea rows="4" cols="50" name="problem_description" id="problem_description" class="form-control" required>{{ $serviceTransaction->problem_description }}</textarea></td>
                                     </tr>
                                 </table>
                             </td>
@@ -228,25 +203,6 @@
                                             </div>
                                             <button type="button" id="add-service-btn" class="btn btn-primary mt-2">Add Service</button>
                                         </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td>Garansi <br><br>
-                                <table class="no-border">
-                                    <tr>
-                                        <td>No. Garansi</td>
-                                        <td>:</td>
-                                        <td><input type="text" name="warranty_id" class="form-control" value="{{ $serviceTransaction->warranty_id }}" required readonly></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tgl. Mulai</td>
-                                        <td>:</td>
-                                        <td><input type="date" name="warranty_start_date" id="warranty_start_date" class="form-control" value="{{ $serviceTransaction->warranty->start_date }}" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tgl. Akhir</td>
-                                        <td>:</td>
-                                        <td><input type="date" name="warranty_end_date" id="warranty_end_date" class="form-control" value="{{ $serviceTransaction->warranty->end_date }}" required readonly></td>
                                     </tr>
                                 </table>
                             </td>

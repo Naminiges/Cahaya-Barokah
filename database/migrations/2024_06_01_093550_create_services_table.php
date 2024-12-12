@@ -17,7 +17,9 @@ class CreateServicesTable extends Migration
             $table->id('id_service');
             $table->string('service_name');
             $table->decimal('service_price', 8, 2);
-            $table->integer('warranty_range')->default(1);
+            $table->integer('stock')->default(0);
+            $table->char('supplier_id', 36);
+            $table->foreign('supplier_id')->references('supplier_id')->on('suppliers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

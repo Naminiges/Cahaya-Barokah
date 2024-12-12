@@ -24,7 +24,7 @@ class ServiceController extends Controller
         $request->validate([
             'service_name' => 'required',
             'service_price' => 'required|numeric',
-            'warranty_range' => 'required|integer'
+            'stock' => 'required|integer'
         ]);
 
         Service::create($request->all());
@@ -43,7 +43,7 @@ class ServiceController extends Controller
         $request->validate([
             'service_name' => 'required',
             'service_price' => 'required|numeric',
-            'warranty_range' => 'required|integer'
+            'stock' => 'required|integer'
         ]);
 
         $service = Service::findOrFail($id_service);

@@ -11,12 +11,12 @@
     <style>
         .main-container {
             display: flex;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .sidebar {
             width: 260px;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .content {
@@ -104,11 +104,6 @@
                                         <td>Tgl Masuk</td>
                                         <td>:</td>
                                         <td><input type="date" name="entry_date" class="form-control" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tgl Keluar</td>
-                                        <td>:</td>
-                                        <td><input type="date" name="takeout_date" class="form-control" required></td>
                                     </tr>
                                 </table>
                                 <br><br>

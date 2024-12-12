@@ -26,12 +26,10 @@
                 <thead>
                     <tr>
                         <th>Invoice Number</th>
-                        <th>Technician</th>
+                        <th>Cashier</th>
                         <th>Customer</th>
-                        <th>Laptop</th>
                         <th>Total Price</th>
                         <th>Entry Date</th>
-                        <th>Takeout Date</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -40,12 +38,10 @@
                     @foreach($service_transactions as $transaction)
                     <tr data-transaction-id="{{ $transaction->transaction_id }}">
                         <td>{{ $transaction->invoice_number }}</td>
-                        <td>{{ $transaction->technician->name }}</td>
-                        <td>{{ $transaction->customer->customer_name }}</td>
-                        <td>{{ $transaction->laptop->laptop_brand }}</td>
+                        <td>{{ $transaction->cashier_name }}</td>
+                        <td>{{ $transaction->customer_name }}</td>
                         <td>Rp {{ number_format($transaction->total_price, 2, ',', '.') }}</td>
                         <td>{{ $transaction->entry_date }}</td>
-                        <td>{{ $transaction->takeout_date }}</td>
                         <td>{{ $transaction->status }}</td>
                         <td class="actions-column">
                             @if($transaction->status == 'pending')
@@ -54,11 +50,11 @@
                             @elseif($transaction->status == 'completed')
                             <a href="{{ route('service_transactions.show', $transaction->transaction_id) }}" class="btn btn-sm btn-info">View</a>
                             @endif
-                            <form action="{{ route('service_transactions.destroy', $transaction->transaction_id) }}" method="POST" style="display:inline-block;">
+                            {{-- <form action="{{ route('service_transactions.destroy', $transaction->transaction_id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
+                            </form> --}}
                         </td>
                     </tr>
                     @endforeach

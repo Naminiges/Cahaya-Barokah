@@ -11,12 +11,12 @@
     <style>
         .main-container {
             display: flex;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .sidebar {
             width: 260px;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .content {
@@ -116,7 +116,7 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Create Service Transaction</span></h3>
+            <h3><span style="color: black;">Create Transaction</span></h3>
             <hr>
             <div id="content-frame" class="container">
                 <form action="{{ route('service_transactions.store') }}" method="POST">
@@ -135,13 +135,13 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Technician</td>
+                                        <td>Cashier</td>
                                         <td>:</td>
                                         <td>
-                                            <select name="technician_id" class="form-control" required>
-                                                <option value="">Select Technician</option>
-                                                @foreach($technicians as $technician)
-                                                <option value="{{ $technician->id }}">{{ $technician->name }}</option>
+                                            <select name="cashier_id" class="form-control" required>
+                                                <option value="">Select Cashier</option>
+                                                @foreach($cashiers as $cashier)
+                                                <option value="{{ $cashier->id }}">{{ $cashier->name }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
@@ -162,18 +162,12 @@
                                         </td>
                                         <td colspan="2"></td>
                                     </tr>
-                                    <tr>
-                                        <td>Takeout Date</td>
-                                        <td>:</td>
-                                        <td><input type="date" name="takeout_date" class="form-control" required id="takeout_date"></td>
-                                        <td colspan="6"></td>
-                                    </tr>
                                 </table>
                                 <br><br>
                             </td>
                         </tr>
                         <tr>
-                            <td>Customer & Laptop <br><br>
+                            <td>Customer<br><br>
                                 <table class="no-border">
                                     <tr>
                                         <td>Customer</td>
@@ -187,7 +181,7 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Laptop</td>
                                         <td>:</td>
                                         <td>
@@ -200,25 +194,25 @@
                                                 @endforeach
                                             </select>
                                         </td>
-                                    </tr>
-                                    <tr>
+                                    </tr> --}}
+                                    {{-- <tr>
                                         <td>Problem Description</td>
                                         <td>:</td>
                                         <td><textarea rows="4" cols="50" name="problem_description" id="problem_description" class="form-control" required></textarea></td>
-                                    </tr>
+                                    </tr> --}}
                                 </table>
                             </td>
-                            <td>Service <br><br>
+                            <td>Produk <br><br>
                                 <table class="no-border">
                                     <tr>
-                                        <td>Service</td>
+                                        <td>Produk</td>
                                         <td>
                                            <div id="services-container">
                                                 <div class="service-item">
                                                     <select name="service_id[]" class="form-control service-select" required>
-                                                        <option value="">Select Service</option>
+                                                        <option value="">Select Product</option>
                                                         @foreach($services as $service)
-                                                        <option value="{{ $service->id_service }}" data-price="{{ $service->service_price }}" data-warranty="{{ $service->warranty_range }}">{{ $service->service_name }}</option>
+                                                        <option value="{{ $service->id_service }}" data-price="{{ $service->service_price }}" >{{ $service->service_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -228,7 +222,7 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td>Warranty <br><br>
+                            {{-- <td>Warranty <br><br>
                                 <table class="no-border">
                                     <tr>
                                         <td>Warranty Number</td>
@@ -246,7 +240,7 @@
                                         <td><input type="date" name="warranty_end_date" id="warranty_end_date" class="form-control" required readonly></td>
                                     </tr>
                                 </table>
-                            </td>
+                            </td> --}}
                         </tr>
                         <tr>
                             <td colspan="9">

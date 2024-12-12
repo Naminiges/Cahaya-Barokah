@@ -57,7 +57,7 @@
                         <th>Service ID</th>
                         <th>Service Name</th>
                         <th>Service Price</th>
-                        <th>Warranty Range (years)</th>
+                        <th>Stock</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -67,7 +67,7 @@
                         <td>{{ $service->id_service }}</td>
                         <td>{{ $service->service_name }}</td>
                         <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
-                        <td>{{ $service->warranty_range }}</td>
+                        <td>{{ $service->stock }}</td>
                         <td class="actions-column">
                             <a href="{{ route('services.edit', ['service' => $service->id_service]) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('services.destroy', ['service' => $service->id_service]) }}" method="POST" style="display:inline-block;">

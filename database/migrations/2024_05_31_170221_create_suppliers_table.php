@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('laptops', function (Blueprint $table) {
-            $table->id('id_laptop');
-            $table->unsignedBigInteger('customer_id');
-            $table->string('laptop_brand');
-            $table->text('problem_description');
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->char('supplier_id',36)->primary();
+            $table->string('name',255)->unique();
+            $table->string('contact_name',255);
+            $table->string('phone',15)->nullable();
+            $table->text('address')->nullable();
             $table->timestamps();
-
-            $table->foreign('customer_id')->references('customer_id')->on('customers')->onDelete('cascade');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('laptops');
+        Schema::dropIfExists('suppliers');
     }
 };

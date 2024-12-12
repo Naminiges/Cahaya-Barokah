@@ -37,16 +37,12 @@
             <td>{{ $serviceTransaction->invoice_number }}</td>
         </tr>
         <tr>
-            <td>Teknisi</td>
-            <td>{{ $serviceTransaction->technician->name }}</td>
+            <td>Cashier</td>
+            <td>{{ $serviceTransaction->cashier_name }}</td>
         </tr>
         <tr>
             <td>Pelanggan</td>
-            <td>{{ $serviceTransaction->customer->customer_name }}</td>
-        </tr>
-        <tr>
-            <td>Laptop</td>
-            <td>{{ $serviceTransaction->laptop->laptop_brand }}</td>
+            <td>{{ $serviceTransaction->customer_name }}</td>
         </tr>
         <tr>
             <td>Total Price</td>
@@ -57,9 +53,6 @@
             <td>{{ $serviceTransaction->entry_date }}</td>
         </tr>
         <tr>
-            <td>Takeout Date</td>
-            <td>{{ $serviceTransaction->takeout_date }}</td>
-        </tr>
         <tr>
             <td>Status</td>
             <td>{{ $serviceTransaction->status }}</td>
@@ -71,7 +64,6 @@
             <tr>
                 <th>Service</th>
                 <th>Price</th>
-                <th>Warranty</th>
             </tr>
         </thead>
         <tbody>
@@ -82,7 +74,6 @@
             <tr>
                 <td>{{ $service->service_name }}</td>
                 <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
-                <td>{{ $service->warranty_range }} months</td>
             </tr>
             @endforeach
         </tbody>

@@ -41,6 +41,7 @@
     <br>
 
     {{-- Menu Side Nav --}}
+    @if (Auth::user()->usertype == 'admin')
     <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
         <li class="nav-item">
             <a href="{{ route('dashboard') }}" class="{{ Route::is('dashboard') ? 'text-white bg-custom rounded active' : '' }} nav-link">
@@ -63,11 +64,6 @@
                             Servis
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('sparepart') }}" class="{{ Request::is('sparepart') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">
-                            Sparepart
-                        </a>
-                    </li>
                 </ul>
             </div>
         </li>
@@ -81,10 +77,9 @@
             </a>
             <div id="database-submenu" class="collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="{{ route('users.index') }}" class="{{ Request::is('users*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Teknisi</a></li>
-                    <li><a href="{{ route('customers.index') }}" class="{{ Request::is('customers*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Pelanggan</a></li>
-                    <li><a href="{{ route('laptops.index') }}" class="{{ Request::is('laptops*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Laptop</a></li>
-                    <li><a href="{{ route('services.index') }}" class="{{ Request::is('services*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Jasa Servis</a></li>
+                    <li><a href="{{ route('users.index') }}" class="{{ Request::is('users*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Cashier</a></li>
+                    <li><a href="{{ route('customers.index') }}" class="{{ Request::is('customers*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Customer</a></li>
+                    <li><a href="{{ route('services.index') }}" class="{{ Request::is('services*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Produk</a></li>
                 </ul>
             </div>
         </li>
@@ -104,6 +99,43 @@
             </form>
         </li>
     </ul>
+    @else
+    <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
+        <li class="nav-item">
+            <a href="{{ route('dashboard') }}" class="{{ Route::is('dashboard') ? 'text-white bg-custom rounded active' : '' }} nav-link">
+                @include('components.icons.svg-dashboard')
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="#transaksi-submenu" class="nav-link text-white d-flex justify-content-between align-items-center" onclick="toggleCollapse('transaksi-submenu', this)">
+                <span>
+                    @include('components.icons.svg-transaksi')
+                    Transaksi
+                </span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <div id="transaksi-submenu" class="collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="nav-item">
+                        <a href="{{ route('service_transactions.index') }}" class="{{ Request::is('service_transactions*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">
+                            Servis
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-link nav-link-button {{ Route::is('logout') ? 'active' : '' }}">
+                    @include('components.icons.svg-logout')
+                    Logout
+                </button>
+            </form>
+        </li>
+        </ul>
+    @endif
 </div>
 
 <!-- Include Bootstrap JS -->

@@ -14,16 +14,15 @@ class ServicesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('suppliers')->insert([
+            ['supplier_id' => 'RKA', 'name' => 'Sempurna', 'contact_name' => 'Supplier Sempurna', 'phone' => '082362737878', 'address' => 'Jl.Wahidin No.15'],
+            ['supplier_id' => 'SMP', 'name' => 'Rezeki Kencana Abadi', 'contact_name' => 'Gas Rezeki', 'phone' => '', 'address' => ''],
+        ]);
+
         DB::table('services')->insert([
-            ['service_name' => 'Maintenence / Coolmax', 'service_price' => 200000, 'warranty_range' => 2],
-            ['service_name' => 'Software / Virus', 'service_price' => 85000, 'warranty_range' => 1],
-            ['service_name' => 'Mainboard', 'service_price' => 450000, 'warranty_range' => 2],
-            ['service_name' => 'Charger', 'service_price' => 100000, 'warranty_range' => 1],
-            ['service_name' => 'Keyboard', 'service_price' => 100000, 'warranty_range' => 1],
-            ['service_name' => 'Casing / Engsel', 'service_price' => 200000, 'warranty_range' => 2],
-            ['service_name' => 'Data Recovery', 'service_price' => 250000, 'warranty_range' => 2],
-            ['service_name' => 'Motherboard Health Check', 'service_price' => 75000, 'warranty_range' => 1],
-            ['service_name' => 'Laptop Health Check', 'service_price' => 25000, 'warranty_range' => 1],
+            ['service_name' => 'Gas Elpiji 3kg', 'service_price' => 17000, 'stock' => 300, 'supplier_id' => 'RKA'],
+            ['service_name' => 'Aqua Galon 19l', 'service_price' => 22000, 'stock' => 12, 'supplier_id' => 'SMP'],
+            ['service_name' => 'Beras Lemon 5kg', 'service_price' => 63000, 'stock' => 12, 'supplier_id' => 'SMP'],
         ]);
     }
 }

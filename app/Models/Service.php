@@ -14,7 +14,11 @@ class Service extends Model
     protected $fillable = [
         'service_name',
         'service_price',
-        'warranty_range',
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Service::class, 'supplier_id');
+    }
 }
 
