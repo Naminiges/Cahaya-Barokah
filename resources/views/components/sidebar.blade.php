@@ -122,6 +122,21 @@
                             Servis
                         </a>
                     </li>
+                    
+                </ul>
+            </div>
+        </li>
+        <li>
+            <a href="#database-submenu" class="nav-link text-white d-flex justify-content-between align-items-center" onclick="toggleCollapse('database-submenu', this)">
+                <span>
+                    @include('components.icons.svg-database')
+                    Database
+                </span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <div id="database-submenu" class="collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{{ route('customers.index') }}" class="{{ Request::is('customers*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Customer</a></li>
                 </ul>
             </div>
         </li>

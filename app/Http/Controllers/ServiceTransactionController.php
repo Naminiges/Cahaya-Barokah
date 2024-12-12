@@ -8,6 +8,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 // use App\Models\Warranty;
 use DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceTransactionController extends Controller
 {
@@ -20,7 +21,7 @@ class ServiceTransactionController extends Controller
 
     public function create()
     {
-        $cashiers = User::all(); // Fetch all users from the users table
+        $cashier = Auth::user(); // Fetch all users from the users table
         $customers = Customer::all(); // Fetch customers with their laptops
         $services = Service::all();
 
@@ -28,10 +29,7 @@ class ServiceTransactionController extends Controller
         $nextTransactionId = $lastTransaction ? $lastTransaction->transaction_id + 1 : 1;
         $nextInvoiceNumber = str_pad($nextTransactionId, 3, '0', STR_PAD_LEFT);
 
-        // $lastWarranty = Warranty::orderBy('no_warranty', 'desc')->first();
-        // $nextWarrantyNumber = $lastWarranty ? str_pad(intval($lastWarranty->no_warranty) + 1, 3, '0', STR_PAD_LEFT) : '001';
-
-        return view('service_transactions.create', compact('cashiers', 'customers', 'services', 'nextInvoiceNumber'));
+        return view('service_transactions.create', compact('cashier', 'customers', 'services', 'nextInvoiceNumber'));
     }
 
     public function store(Request $request)

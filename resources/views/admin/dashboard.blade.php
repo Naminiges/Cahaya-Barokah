@@ -50,7 +50,7 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Welcome,</span> <span style="color:#6756ff;">{{ Auth::user()->name }}</span></h3>
+            <h3><span style="color: black;">Welcome Owner,</span> <span style="color:#6756ff;">{{ Auth::user()->name }}</span></h3>
             <hr>
             <!-- Your main content here -->
             <div id="content-frame" class="center-container">

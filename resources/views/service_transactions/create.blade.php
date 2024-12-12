@@ -138,12 +138,7 @@
                                         <td>Cashier</td>
                                         <td>:</td>
                                         <td>
-                                            <select name="cashier_id" class="form-control" required>
-                                                <option value="">Select Cashier</option>
-                                                @foreach($cashiers as $cashier)
-                                                <option value="{{ $cashier->id }}">{{ $cashier->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" name="cashier_id" class="form-control" value="{{ $cashier->id }}" required readonly>
                                         </td>
                                         <td width="600 px"></td>
                                         <td><input type="text" name="total_price" id="total_price" class="form-control total-price-input" placeholder="Rp 0,-" required readonly></td>
@@ -151,7 +146,7 @@
                                     <tr>
                                         <td>Entry Date</td>
                                         <td>:</td>
-                                        <td><input type="date" name="entry_date" class="form-control" required id="entry_date"></td>
+                                        <td><input type="date" name="entry_date" class="form-control" required id="entry_date" value="{{ now()->toDateString() }}" required readonly></td>
                                         <td width="600 px"></td>
                                         <td colspan="3" class="align-end">
                                             <label for="status">Status:</label>
