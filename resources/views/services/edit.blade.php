@@ -71,9 +71,9 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="warranty_range" class="form-label">Warranty Range (years)</label>
-                        <input type="text" name="warranty_range" id="warranty_range" class="form-control" value="{{ $service->warranty_range }}" required>
-                        @error('warranty_range')
+                        <label for="stock" class="form-label">Stock</label>
+                        <input type="text" name="stock" id="stock" class="form-control" value="{{ $service->stock }}" required>
+                        @error('stock')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

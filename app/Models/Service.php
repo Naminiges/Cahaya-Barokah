@@ -14,11 +14,12 @@ class Service extends Model
     protected $fillable = [
         'service_name',
         'service_price',
+        'supplier_id',
     ];
 
     public function supplier()
     {
-        return $this->belongsTo(Service::class, 'supplier_id');
+        return $this->belongsTo(Supplier::class,'supplier_id');
     }
 }
 

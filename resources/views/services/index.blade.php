@@ -43,9 +43,9 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Services</span></h3>
+            <h3><span style="color: black;">Produk</span></h3>
             <hr>
-            <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Service</a>
+            <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Product</a>
             @if(Session::has('success'))
                 <div class="alert alert-success" role="alert">
                     {{ Session::get('success') }}
@@ -54,10 +54,11 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Service ID</th>
-                        <th>Service Name</th>
-                        <th>Service Price</th>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
                         <th>Stock</th>
+                        <th>Supplier</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -68,6 +69,7 @@
                         <td>{{ $service->service_name }}</td>
                         <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
                         <td>{{ $service->stock }}</td>
+                        <td>{{ $service->supplier_id }}</td>
                         <td class="actions-column">
                             <a href="{{ route('services.edit', ['service' => $service->id_service]) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('services.destroy', ['service' => $service->id_service]) }}" method="POST" style="display:inline-block;">
@@ -79,7 +81,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td class="text-center" colspan="5">No services found</td>
+                        <td class="text-center" colspan="6">No services found</td>
                     </tr>
                     @endforelse
                 </tbody>

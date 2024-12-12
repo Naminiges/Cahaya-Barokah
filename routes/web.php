@@ -55,7 +55,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('users', UserController::class);
     Route::resource('services', ServiceController::class);
-    Route::resource('warranties', WarrantyController::class);
     Route::resource('service_transactions', ServiceTransactionController::class);
     Route::get('service_transactions/getLaptopDetails/{laptopId}', [ServiceTransactionController::class, 'getLaptopDetails']);
     Route::get('service_transactions/{transaction}/pay', [ServiceTransactionController::class, 'showPayForm'])->name('service_transactions.pay');

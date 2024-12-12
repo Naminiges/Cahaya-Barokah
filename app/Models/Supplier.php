@@ -20,6 +20,6 @@ class Supplier extends Model
     ];
 
     public function products(){
-        return $this->hasMany(Service::class, 'supplier_id');
+        return $this->hasMany(Service::class, 'supplier_id','supplier_id');
     }
 }

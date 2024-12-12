@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\Service;
 
@@ -11,12 +12,13 @@ class ServiceController extends Controller
     {
         $services = Service::orderBy('id_service', 'desc')->get();
         $total = Service::count();
-        return view('services.index', compact(['services', 'total']));
+        return view('services.index', compact(['services', 'total',]));
     }
 
     public function create()
     {
-        return view('services.create');
+        $suppliers = Supplier::all();
+        return view('services.create', compact('suppliers'));
     }
 
     public function store(Request $request)
@@ -24,10 +26,16 @@ class ServiceController extends Controller
         $request->validate([
             'service_name' => 'required',
             'service_price' => 'required|numeric',
-            'stock' => 'required|integer'
+            'stock' => 'required|integer',
+            'supplier_id' => 'required'
         ]);
 
-        Service::create($request->all());
+        Service::create([
+            'service_name' => $request->service_name,
+            'service_price' => $request->service_price,
+            'stock' => $request->stock,
+            'supplier_id' => $request->supplier_id, 
+        ]);
 
         return redirect()->route('services.index')->with('success', 'Service added successfully.');
     }
