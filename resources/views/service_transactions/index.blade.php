@@ -19,9 +19,9 @@
 
         <!-- Main Content -->
         <main class="content" style="flex: 1; padding: 20px; margin: 30px 30px 30px 0; background-color: #F8F9FA; border-radius: 20px;">
-            <h3><span style="color: black;">Service Transactions</span></h3>
+            <h3><span style="color: black;">Selling Transactions</span></h3>
             <hr>
-            <a href="{{ route('service_transactions.create') }}" class="btn btn-primary mb-3">Create Service Transaction</a>
+            <a href="{{ route('service_transactions.create') }}" class="btn btn-primary mb-3">Create Selling Transaction</a>
             <table class="table table-bordered">
                 <thead>
                     <tr>
