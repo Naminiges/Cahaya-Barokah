@@ -50,7 +50,9 @@
                         <th>Phone Number</th>
                         <th>Created At</th>
                         <th>Updated At</th>
+                        @if (Auth::user()->usertype == 'admin')
                         <th>Actions</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +63,7 @@
                         <td>{{ $customer->customer_phone_number }}</td>
                         <td>{{ $customer->created_at }}</td>
                         <td>{{ $customer->updated_at }}</td>
+                        @if (Auth::user()->usertype == 'admin')
                         <td class="actions-column">
                             <a href="{{ route('customers.edit', ['customer' => $customer->customer_id]) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('customers.destroy', ['customer' => $customer->customer_id]) }}" method="POST" style="display:inline-block;">
@@ -69,6 +72,7 @@
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </td>
+                        @endif
                     </tr>
                     @empty
                     <tr>

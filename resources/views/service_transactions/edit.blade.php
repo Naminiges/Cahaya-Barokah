@@ -139,7 +139,7 @@
                                         <td>Cashier</td>
                                         <td>:</td>
                                         <td>
-                                            <select name="technician_id" class="form-control" required>
+                                            <select name="technician_id" class="form-control" required readonly>
                                                 <option value="">Select Cashier</option>
                                                 @foreach($cashiers as $cashier)
                                                 <option value="{{ $cashier->id }}" {{ $serviceTransaction->cashier_id == $cashier->id ? 'selected' : '' }}>{{ $cashier->name }}</option>
@@ -152,7 +152,7 @@
                                     <tr>
                                         <td>Tgl Masuk</td>
                                         <td>:</td>
-                                        <td><input type="date" name="entry_date" id="entry_date" class="form-control" value="{{ $serviceTransaction->entry_date }}" required></td>
+                                        <td><input type="date" name="entry_date" id="entry_date" class="form-control" value="{{ $serviceTransaction->entry_date }}" required readonly></td>
                                         <td width="600 px"></td>
                                         <td colspan="3" class="align-end">
                                             <label for="status">Status:</label>
@@ -174,10 +174,10 @@
                                         <td>Customer</td>
                                         <td>:</td>
                                         <td>
-                                            <select name="customer_id" id="customer_id" class="form-control" required>
+                                            <select name="customer_id" id="customer_id" class="form-control" required readonly>
                                                 <option value="">Select Customer</option>
                                                 @foreach($customers as $customer)
-                                                <option value="{{ $customer->customer_id }}" {{ $serviceTransaction->customer_id == $customer->customer_id ? 'selected' : '' }}>{{ $customer->customer_name }}</option>
+                                                <option value="{{ $customer->customer_id }}" {{ $serviceTransaction->customer_id == $customer->customer_id ? 'selected' : '' }} >{{ $customer->customer_name }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
@@ -192,7 +192,7 @@
                                            <div id="services-container">
                                                 @foreach(json_decode($serviceTransaction->service_ids) as $serviceId)
                                                 <div class="service-item">
-                                                    <select name="service_id[]" class="form-control service-select" required>
+                                                    <select name="service_id[]" class="form-control service-select" required readonly>
                                                         <option value="">Select Service</option>
                                                         @foreach($services as $service)
                                                         <option value="{{ $service->id_service }}" data-price="{{ $service->service_price }}" data-warranty="{{ $service->warranty_range }}" {{ $serviceId == $service->id_service ? 'selected' : '' }}>{{ $service->service_name }}</option>

@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
@@ -20,6 +21,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('customers', CustomerController::class);
     Route::resource('users', UserController::class);
+    Route::resource('suppliers', SupplierController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('service_transactions', ServiceTransactionController::class);
     Route::get('service_transactions/getLaptopDetails/{laptopId}', [ServiceTransactionController::class, 'getLaptopDetails']);

@@ -12,7 +12,9 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::all();
+        $total = Supplier::count();
+        return view('suppliers.index', compact(['suppliers', 'total']));
     }
 
     /**
@@ -20,7 +22,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
     /**
@@ -28,38 +30,83 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+            'name' => 'required',
+            'contact_name' => 'required',
+            'phone' => 'required|unique:supplier,phone',
+            'address' => 'required'
+        ]);
+
+        $supplier = Supplier::create($validation);
+
+        if ($supplier) {
+            session()->flash('success', 'supplier added successfully.');
+            return redirect(route('supplier.index'));
+        } else {
+            session()->flash('error', 'There was a problem adding the supplier.');
+            return redirect(route('supplier.create'));
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Supplier $supplier)
-    {
-        //
-    }
+    // public function show(Supplier $supplier)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Supplier $supplier)
-    {
-        //
-    }
+    public function edit($id)
+{
+    // Cari supplier berdasarkan supplier_id
+    $supplier = Supplier::findOrFail($id); 
+
+    // Return view dengan data supplier
+    return view('suppliers.edit', compact('supplier'));
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+
+        $validation = $request->validate([
+            'name' => 'required',
+            'contact_name' => 'required',
+            'phone' => 'required|unique:suppliers,phone,' . $id . ',supplier_id',
+            'address' => 'required',
+        ]);
+
+        $supplier->update($validation);
+
+        if ($supplier) {
+            session()->flash('success', 'supplier updated successfully.');
+            return redirect(route('suppliers.index'));
+        } else {
+            session()->flash('error', 'There was a problem updating the supplier.');
+            return redirect(route('suppliers.edit', $id));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Supplier $supplier)
-    {
-        //
-    }
+    // public function destroy(Supplier $id)
+    // {
+    //     $supplier = Supplier::findOrFail($id);
+    //     $supplier->delete();
+
+    //     if ($supplier) {
+    //         session()->flash('success', 'supplier deleted successfully.');
+    //         return redirect(route('suppliers.index'));
+    //     } else {
+    //         session()->flash('error', 'There was a problem deleting the supplier.');
+    //         return redirect(route('suppliers.index'));
+    //     }
+    // }
 }

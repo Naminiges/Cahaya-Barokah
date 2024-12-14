@@ -10,12 +10,12 @@
     <style>
         .main-container {
             display: flex;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .sidebar {
             width: 260px;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .content {
@@ -50,40 +50,41 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Edit Laptop</span></h3>
+            <h3><span style="color: black;">Edit Supplier</span></h3>
             <hr>
             <div id="content-frame" class="container">
-                <form action="{{ route('laptops.update', $laptop->id_laptop) }}" method="POST">
+                <form action="{{ route('suppliers.update', $supplier->supplier_id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label for="customer_id" class="form-label">Customer</label>
-                        <select name="customer_id" id="customer_id" class="form-control" required>
-                            @foreach ($customers as $customer)
-                                <option value="{{ $customer->customer_id }}" {{ $laptop->customer_id == $customer->customer_id ? 'selected' : '' }}>
-                                    {{ $customer->customer_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('customer_id')
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ $supplier->name }}" required>
+                        @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="laptop_brand" class="form-label">Laptop Brand</label>
-                        <input type="text" name="laptop_brand" id="laptop_brand" class="form-control" value="{{ $laptop->laptop_brand }}" required>
-                        @error('laptop_brand')
+                        <label for="contact_name" class="form-label">Contact Name</label>
+                        <input type="text" name="contact_name" id="contact_name" class="form-control" value="{{ $supplier->contact_name }}" required>
+                        @error('contact_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="problem_description" class="form-label">Problem Description</label>
-                        <textarea name="problem_description" id="problem_description" class="form-control" required>{{ $laptop->problem_description }}</textarea>
-                        @error('problem_description')
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" name="phone" id="phone" class="form-control" value="{{ $supplier->phone }}" required>
+                        @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Laptop</button>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" name="address" id="address" class="form-control" value="{{ $supplier->address }}" required>
+                        @error('address')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update supplier</button>
                 </form>
             </div>
         </main>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laptops</title>
+    <title>Suppliers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,42 +43,39 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Laptops</span></h3>
+            <h3><span style="color: black;">Suppliers</span></h3>
             <hr>
-            <a href="{{ route('laptops.create') }}" class="btn btn-primary mb-3">Add Laptop</a>
+            <a href="{{ route('suppliers.create') }}" class="btn btn-primary mb-3">Add Supplier</a>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Laptop ID</th>
-                        <th>Customer</th>
-                        <th>Brand</th>
-                        <th>Problem Description</th>
+                        <th>Supplier ID</th>
+                        <th>Name</th>
+                        <th>Contact Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($laptops as $laptop)
-                    <tr data-laptop-id="{{ $laptop->id_laptop }}">
-                        <td>{{ $laptop->id_laptop }}</td>
-                        <td>{{ $laptop->customer->customer_name }}</td>
-                        <td>{{ $laptop->laptop_brand }}</td>
-                        <td>{{ $laptop->problem_description }}</td>
-                        <td>{{ $laptop->created_at }}</td>
-                        <td>{{ $laptop->updated_at }}</td>
+                    @forelse ($suppliers as $supplier)
+                    <tr data-supplier-id="{{ $supplier->supplier_id }}">
+                        <td>{{ $supplier->supplier_id }}</td>
+                        <td>{{ $supplier->name }}</td>
+                        <td>{{ $supplier->contact_name }}</td>
+                        <td>{{ $supplier->phone }}</td>
+                        <td>{{ $supplier->address }}</td>
+                        <td>{{ $supplier->created_at }}</td>
+                        <td>{{ $supplier->updated_at }}</td>
                         <td class="actions-column">
-                            <a href="{{ route('laptops.edit', ['laptop' => $laptop->id_laptop]) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('laptops.destroy', ['laptop' => $laptop->id_laptop]) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
+                            <a href="{{ route('suppliers.edit', ['supplier' => $supplier->supplier_id]) }}" class="btn btn-sm btn-warning">Edit</a>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td class="text-center" colspan="7">No laptops found</td>
+                        <td class="text-center" colspan="7">No Suppliers found</td>
                     </tr>
                     @endforelse
                 </tbody>

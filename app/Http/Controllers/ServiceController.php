@@ -12,7 +12,7 @@ class ServiceController extends Controller
     {
         $services = Service::orderBy('id_service', 'desc')->get();
         $total = Service::count();
-        return view('services.index', compact(['services', 'total',]));
+        return view('services.index', compact(['services', 'total']));
     }
 
     public function create()

@@ -80,6 +80,7 @@
                     <li><a href="{{ route('users.index') }}" class="{{ Request::is('users*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Cashier</a></li>
                     <li><a href="{{ route('customers.index') }}" class="{{ Request::is('customers*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Customer</a></li>
                     <li><a href="{{ route('services.index') }}" class="{{ Request::is('services*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Produk</a></li>
+                    <li><a href="{{ route('suppliers.index') }}" class="{{ Request::is('suppliers*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Supplier</a></li>
                 </ul>
             </div>
         </li>

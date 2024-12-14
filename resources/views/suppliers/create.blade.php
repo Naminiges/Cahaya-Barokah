@@ -10,12 +10,12 @@
     <style>
         .main-container {
             display: flex;
-            background-color: #067D40;
+            background-color: #6756ff;
         }
 
         .sidebar {
-            width: 260px;
-            background-color: #067D40;
+            width: 260px;       
+            background-color: #6756ff;
         }
 
         .content {
@@ -50,38 +50,47 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Add Laptop</span></h3>
+            <h3><span style="color: black;">Add Suppliers</span></h3>
             <hr>
             <div id="content-frame" class="container">
-                <form action="{{ route('laptops.store') }}" method="POST">
+                <form action="{{ route('suppliers.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="customer_id" class="form-label">Customer</label>
-                        <select name="customer_id" id="customer_id" class="form-control" required>
-                            <option value="">Select Customer</option>
-                            @foreach($customers as $customer)
-                                <option value="{{ $customer->customer_id }}">{{ $customer->customer_name }}</option>
-                            @endforeach
-                        </select>
-                        @error('customer_id')
+                        <label for="supplier_id" class="form-label">Supplier ID</label>
+                        <input type="text" name="supplier_id" id="supplier_id" class="form-control" required>
+                        @error('supplier_id')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="laptop_brand" class="form-label">Laptop Brand</label>
-                        <input type="text" name="laptop_brand" id="laptop_brand" class="form-control" required>
-                        @error('laptop_brand')
+                        <label for="supplier_name" class="form-label">Name</label>
+                        <input type="text" name="supplier_name" id="supplier_name" class="form-control" required>
+                        @error('supplier_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="problem_description" class="form-label">Problem Description</label>
-                        <textarea name="problem_description" id="problem_description" class="form-control" required></textarea>
-                        @error('problem_description')
+                        <label for="contact_name" class="form-label">Contact Name</label>
+                        <input type="text" name="contact_name" id="contact_name" class="form-control" required>
+                        @error('contact_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Laptop</button>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" name="phone" id="phone" class="form-control" required>
+                        @error('phone')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" name="address" id="address" class="form-control" required>
+                        @error('address')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add supplier</button>
                 </form>
             </div>
         </main>
