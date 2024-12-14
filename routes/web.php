@@ -24,7 +24,6 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('suppliers', SupplierController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('service_transactions', ServiceTransactionController::class);
-    Route::get('service_transactions/getLaptopDetails/{laptopId}', [ServiceTransactionController::class, 'getLaptopDetails']);
     Route::get('service_transactions/{transaction}/pay', [ServiceTransactionController::class, 'showPayForm'])->name('service_transactions.pay');
     Route::post('service_transactions/{transaction}/pay', [ServiceTransactionController::class, 'processPayment'])->name('service_transactions.processPayment');
     Route::get('service_transactions/view/{transaction}', [ServiceTransactionController::class, 'show'])->name('service_transactions.show');
