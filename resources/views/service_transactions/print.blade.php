@@ -29,7 +29,7 @@
 </head>
 <body>
     <div class="invoice-header">
-        <h2>Service Transaction Invoice</h2>
+        <h2>Cahaya Barokah Transaction Invoice</h2>
     </div>
     <table class="invoice-table">
         <tr>
@@ -58,26 +58,31 @@
             <td>{{ $serviceTransaction->status }}</td>
         </tr>
     </table>
-    <h3>Services</h3>
+    <h3>Products</h3>
     <table class="invoice-table">
         <thead>
             <tr>
-                <th>Service</th>
+                <th>Product</th>
+                <th>Quantity</th>
                 <th>Price</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(json_decode($serviceTransaction->service_ids) as $serviceId)
-            @php
-                $service = $services->firstWhere('id_service', $serviceId);
-            @endphp
-            <tr>
-                <td>{{ $service->service_name }}</td>
-                <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
-            </tr>
+            @foreach(json_decode($serviceTransaction->service_ids) as $index => $serviceId)
+                @php
+                    $service = $services->firstWhere('id_service', $serviceId);
+                    $quantity = json_decode($serviceTransaction->quantities)[$index];
+                    $totalPrice = $service->service_price * $quantity;
+                @endphp
+                <tr>
+                    <td>{{ $service->service_name }}</td>
+                    <td>{{ $quantity }}</td>
+                    <td>Rp {{ number_format($totalPrice, 2, ',', '.') }}</td>
+                </tr>
             @endforeach
         </tbody>
     </table>
+    
     <script>
         window.onload = function() {
             window.print();

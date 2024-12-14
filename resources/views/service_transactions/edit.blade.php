@@ -116,7 +116,7 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Edit Service Transaction</span></h3>
+            <h3><span style="color: black;">Edit Selling Transaction</span></h3>
             <hr>
             <div id="content-frame" class="container">
                 <form action="{{ route('service_transactions.update', $serviceTransaction->transaction_id) }}" method="POST">
@@ -184,16 +184,16 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td>Jasa Servis <br><br>
+                            <td>Products <br><br>
                                 <table class="no-border">
                                     <tr>
-                                        <td>Service</td>
+                                        <td>Product</td>
                                         <td>
                                            <div id="services-container">
                                                 @foreach(json_decode($serviceTransaction->service_ids) as $serviceId)
                                                 <div class="service-item">
                                                     <select name="service_id[]" class="form-control service-select" required readonly>
-                                                        <option value="">Select Service</option>
+                                                        <option value="">Select Product</option>
                                                         @foreach($services as $service)
                                                         <option value="{{ $service->id_service }}" data-price="{{ $service->service_price }}" data-warranty="{{ $service->warranty_range }}" {{ $serviceId == $service->id_service ? 'selected' : '' }}>{{ $service->service_name }}</option>
                                                         @endforeach
@@ -201,7 +201,7 @@
                                                 </div>
                                                 @endforeach
                                             </div>
-                                            <button type="button" id="add-service-btn" class="btn btn-primary mt-2">Add Service</button>
+                                            <button type="button" id="add-service-btn" class="btn btn-primary mt-2">Add Product</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -210,8 +210,9 @@
                         <tr>
                             <td colspan="9">
                                 <div class="buttons">
+                                    <a href="{{ route('service_transactions.index') }}" class="btn btn-secondary">Back</a>
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="reset" class="btn btn-danger">Reset</button>
                                 </div>
                             </td>
                         </tr>

@@ -116,7 +116,7 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">View Service Transaction</span></h3>
+            <h3><span style="color: black;">View Selling Transaction</span></h3>
             <hr>
             <div id="content-frame" class="container">
                 <form>

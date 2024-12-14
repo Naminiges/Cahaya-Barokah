@@ -19,6 +19,7 @@ class ServiceTransaction extends Model
         'cashier_name',
         'customer_name',
         'service_ids',
+        'quantities',
         'total_price',
         'status'
     ];

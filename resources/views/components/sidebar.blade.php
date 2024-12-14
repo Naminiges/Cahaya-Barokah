@@ -125,7 +125,7 @@
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li class="nav-item">
                         <a href="{{ route('service_transactions.index') }}" class="{{ Request::is('service_transactions*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">
-                            Servis
+                            Selling
                         </a>
                     </li>
                     

@@ -51,33 +51,11 @@ class ServiceTransactionController extends Controller
         $customer = Customer::find($customerId);
         $customerName = $customer->customer_name;
 
-        // Calculate end date based on start date and warranty range
-        // $warrantyStartDate = $request->warranty_start_date;
-        // $warrantyEndDate = $request->warranty_end_date;
-
-        // Calculate warranty duration in months
-        // $startDate = new DateTime($warrantyStartDate);
-        // $endDate = new DateTime($warrantyEndDate);
-        // $warrantyDuration = $startDate->diff($endDate)->m + ($startDate->diff($endDate)->y * 12);
-
-        // Create or find the warranty
-        // $lastWarranty = Warranty::orderBy('no_warranty', 'desc')->first();
-        // $nextWarrantyNumber = $lastWarranty ? str_pad(intval($lastWarranty->no_warranty) + 1, 3, '0', STR_PAD_LEFT) : '001';
-
-        // $warranty = Warranty::firstOrCreate(
-        //     ['no_warranty' => $nextWarrantyNumber],
-        //     [
-        //         'id_service' => $request->service_id[0], // Assuming the first service ID is used for the warranty
-        //         'start_date' => $warrantyStartDate,
-        //         'end_date' => $warrantyEndDate,
-        //         'warranty_duration' => $warrantyDuration
-        //     ]
-        // );
-
         // Create the service transaction
         $transaction = new ServiceTransaction($request->except('total_price', 'service_id'));
         $transaction->total_price = $totalPrice;
         $transaction->service_ids = json_encode($request->service_id); // Convert the service_ids array to a JSON string
+        $transaction->quantities = json_encode($request->quantity); // Convert the quantities array to a JSON string
         $transaction->cashier_name = $cashierName; 
         $transaction->customer_name = $customerName;
         $transaction->save();

@@ -22,6 +22,7 @@ class CreateServiceTransactionsTable extends Migration
             $table->string('cashier_name');
             $table->string('customer_name');
             $table->json('service_ids')->nullable();
+            $table->json('quantities')->nullable();
             $table->decimal('total_price', 10, 2)->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
