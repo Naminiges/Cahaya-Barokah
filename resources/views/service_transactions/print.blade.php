@@ -64,23 +64,40 @@
             <tr>
                 <th>Product</th>
                 <th>Quantity</th>
+                <th>Price (pcs)</th>
                 <th>Price</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(json_decode($serviceTransaction->service_ids) as $index => $serviceId)
-                @php
-                    $service = $services->firstWhere('id_service', $serviceId);
-                    $quantity = json_decode($serviceTransaction->quantities)[$index];
-                    $totalPrice = $service->service_price * $quantity;
-                @endphp
+            @if(!empty(json_decode($serviceTransaction->service_ids)) && !empty(json_decode($serviceTransaction->quantities)))
+                @foreach(json_decode($serviceTransaction->service_ids) as $index => $serviceId)
+                    @php
+                        $service = $services->firstWhere('id_service', $serviceId);
+                        $quantities = json_decode($serviceTransaction->quantities);
+                        $quantity = $quantities[$index] ?? 0; // Pastikan ada quantity untuk index ini
+                        $totalPrice = $service->service_price * $quantity; // Hitung total harga
+                    @endphp
+                    <tr>
+                        <td>{{ $service->service_name }}</td>
+                        <td>{{ $quantity }}</td>
+                        <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
+                        <td>Rp {{ number_format($totalPrice, 2, ',', '.') }}</td>
+                    </tr>
+                @endforeach
+            @else
+                @foreach(json_decode($serviceTransaction->service_ids) as $index => $serviceId)
+                    @php
+                        $service = $services->firstWhere('id_service', $serviceId);
+                    @endphp
                 <tr>
                     <td>{{ $service->service_name }}</td>
-                    <td>{{ $quantity }}</td>
-                    <td>Rp {{ number_format($totalPrice, 2, ',', '.') }}</td>
+                    <td style="text-align: center;">-</td>
+                    <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
+                    <td style="text-align: center;">-</td>
                 </tr>
-            @endforeach
-        </tbody>
+                @endforeach
+            @endif
+        </tbody>        
     </table>
     
     <script>

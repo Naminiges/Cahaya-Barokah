@@ -9,11 +9,14 @@ use App\Models\Service;
 class ServiceController extends Controller
 {
     public function index()
-    {
-        $services = Service::orderBy('id_service', 'desc')->get();
-        $total = Service::count();
-        return view('services.index', compact(['services', 'total']));
-    }
+{
+    // $services = Service::orderBy('id_service', 'desc')->paginate(10); // ini kalo dari 61 ke 1
+    $services = Service::orderBy('id_service', 'asc')->paginate(10);
+    $total = Service::count();
+
+    return view('services.index', compact('services', 'total'));
+}
+    
 
     public function create()
     {

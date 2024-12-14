@@ -41,53 +41,69 @@
             @include('components.sidebar')
         </div>
 
-        <!-- Main Content -->
-        <main class="content">
-            <h3><span style="color: black;">Produk</span></h3>
-            <hr>
-            <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Product</a>
-            @if(Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ Session::get('success') }}
-                </div>
-            @endif
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Product ID</th>
-                        <th>Product Name</th>
-                        <th>Product Price</th>
-                        <th>Stock</th>
-                        <th>Supplier</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($services as $service)
-                    <tr data-service-id="{{ $service->id_service }}">
-                        <td>{{ $service->id_service }}</td>
-                        <td>{{ $service->service_name }}</td>
-                        <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
-                        <td>{{ $service->stock }}</td>
-                        <td>{{ $service->supplier_id }}</td>
-                        <td class="actions-column">
-                            <a href="{{ route('services.edit', ['service' => $service->id_service]) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('services.destroy', ['service' => $service->id_service]) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td class="text-center" colspan="6">No services found</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </main>
+       <!-- Main Content -->
+<main class="content">
+    <h3><span style="color: black;">Produk</span></h3>
+    <hr>
+    <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Product</a>
+    
+    @if(Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+    @endif
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Stock</th>
+                <th>Supplier</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+            // Inisialisasi nomor urut untuk pagination
+            $no = ($services->currentPage() - 1) * $services->perPage() + 1;
+            @endphp
+            @forelse ($services as $service)
+            <tr data-service-id="{{ $service->id_service }}">
+                <td>{{ $service->id_service }}</td>
+                <td>{{ $service->service_name }}</td>
+                <td>Rp {{ number_format($service->service_price, 2, ',', '.') }}</td>
+                <td>{{ $service->stock }}</td>
+                <td>{{ $service->supplier_id }}</td>
+                <td class="actions-column">
+                    <a href="{{ route('services.edit', ['service' => $service->id_service]) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ route('services.destroy', ['service' => $service->id_service]) }}" method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td class="text-center" colspan="7">No services found</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <!-- Pagination Navigation -->
+    {{-- <div class="d-flex justify-content-center mt-3">
+        {{ $services->links() }}
+    </div> --}}
+
+    <div class="d-flex justify-content-center mt-3">
+        {{ $services->links('pagination::bootstrap-5') }}
     </div>
+    
+</main>
+</div>
 
     <!-- Include Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
