@@ -12,7 +12,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::orderBy('supplier_id', 'asc')->paginate(10);
         $total = Supplier::count();
         return view('suppliers.index', compact(['suppliers', 'total']));
     }

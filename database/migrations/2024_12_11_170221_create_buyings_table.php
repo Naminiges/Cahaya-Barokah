@@ -15,6 +15,7 @@ return new class extends Migration
             $table->char('buying_invoice_id',36)->primary();
             $table->timestamp('order_date');
             $table->string('supplier_name',255);
+            $table->timestamps();
         });
     }
 

@@ -9,8 +9,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->get();
+        $users = User::orderBy('id', 'asc')->paginate(10);
         $total = User::count();
+        
         return view('users.index', compact(['users', 'total']));
     }
 

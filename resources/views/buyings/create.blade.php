@@ -212,111 +212,63 @@
 
         <!-- Main Content -->
         <main class="content">
-            <h3><span style="color: black;">Create Transaction</span></h3>
+            <h3><span style="color: black;">Buying Transaction</span></h3>
             <hr>
             <div id="content-frame" class="container">
-                <form action="{{ route('service_transactions.store') }}" method="POST">
+                <form action="{{ route('buying.store') }}" method="POST">
                     @csrf
-                    <table class="bordered-table">
-                        <tr class="no-border">
-                            <td colspan="9">
-                                <table class="no-border">
-                                    <tr>
-                                        <td>Invoice Number</td>
-                                        <td>:</td>
-                                        <td><input type="text" name="invoice_number" class="form-control" value="{{ $nextInvoiceNumber }}" required readonly></td>
-                                        <td width="600 px"></td>
-                                        <td class="align-right total-transaksi-container">
-                                            <label for="total_price">Total Transaction</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cashier</td>
-                                        <td>:</td>
-                                        <td>
-                                            <input type="text" name="cashier_id" class="form-control" value="{{ $cashier->id }}" required readonly>
-                                        </td>
-                                        <td width="600 px"></td>
-                                        <td><input type="text" name="total_price" id="total_price" class="form-control total-price-input" placeholder="Rp 0,-" required readonly></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Entry Date</td>
-                                        <td>:</td>
-                                        <td><input type="date" name="entry_date" class="form-control" required id="entry_date" value="{{ now()->toDateString() }}" required readonly></td>
-                                        <td width="600 px"></td>
-                                        <td colspan="3" class="align-end">
-                                            <label for="status">Status:</label>
-                                            <select name="status" class="form-control" required>
-                                                <option value="pending">Pending</option>
-                                                <option value="completed">Completed</option>
-                                            </select>
-                                        </td>
-                                        <td colspan="2"></td>
-                                    </tr>
-                                </table>
-                                <br><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Customer<br><br>
-                                <table class="no-border">
-                                    <tr>
-                                        <td>Customer</td>
-                                        <td>:</td>
-                                        <td>
-                                            <select name="customer_id" id="customer_id" class="form-control" required>
-                                                <option value="">Select Customer</option>
-                                                @foreach($customers as $customer)
-                                                <option value="{{ $customer->customer_id }}">{{ $customer->customer_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td>Produk <br><br>
-                                <table class="no-border">
-                                    <tr>
-                                        <td>Produk</td>
-                                        <td>
-                                           <div id="services-container">
-                                                <div class="service-item">
-                                                    <div class="d-flex gap-2">
-                                                        <select name="service_id[]" class="form-control service-select" style="width: 300px;" required>
-                                                            <option value="">Select Product</option>
-                                                            @foreach($services as $service)
-                                                            <option value="{{ $service->id_service }}" data-price="{{ $service->service_price }}">{{ $service->service_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <div class="quantity-control">
-                                                            <button type="button" class="quantity-btn decrease-quantity">
-                                                                <i class="bi bi-dash"></i>
-                                                            </button>
-                                                            <input type="number" name="quantity[]" class="quantity-input" value="1" min="1">
-                                                            <button type="button" class="quantity-btn increase-quantity">
-                                                                <i class="bi bi-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="button" id="add-service-btn" class="btn btn-primary mt-2">Add Service</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="9">
-                                <div class="buttons">
-                                    <a href="{{ route('service_transactions.index') }}" class="btn btn-secondary">Back</a>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                    <button type="reset" class="btn btn-danger">Reset</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="mb-3">
+                        <label for="buying_invoice_id" class="form-label">Invoice</label>
+                        <input type="text" name="buying_invoice_id" id="buying_invoice_id" class="form-control" required>
+                        @error('buying_invoice_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplier_name" class="form-label">Supplier Name</label>
+                        <input type="text" name="supplier_name" id="supplier_name" class="form-control" required>
+                        @error('supplier_name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="entry_date" class="form-label">Entry Date</label>
+                        <input type="date" name="entry_date" class="form-control" required id="entry_date">
+                        @error('entry_date')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3" id="services-container">
+                        <div class="service-item">
+                            <table class="no-border">
+                                <tr>
+                                    <td>
+                                        <label for="product_name" class="form-label">Product Name</label>
+                                        <input type="text" name="product_name[]" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <label for="product_price" class="form-label">Product Price</label>
+                                        <input type="number" name="product_price[]" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <label for="exp_date" class="form-label">Exp Date</label>
+                                        <input type="date" name="exp_date[]" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <label for="quantity" class="form-label">Quantity</label>
+                                        <input type="number" name="quantity[]" class="form-control" required>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" id="add-service-btn" class="btn btn-primary mt-2">Add Product</button>
+                    <button type="submit" class="btn btn-primary mt-2">Add Transaction</button>
                 </form>
+                <div class="buttons mt-2">
+                    <a href="{{ route('buying.index') }}" class="btn btn-secondary">Back</a>
+                    <a href="{{ route('buying.create') }}" class="btn btn-danger">Reset</a>
+                </div>
             </div>
         </main>
     </div>
@@ -340,11 +292,17 @@
     }
 
     // Add new service item
-    $('#add-service-btn').click(function() {
-        const newServiceItem = $('.service-item').first().clone();
-        initializeServiceItem(newServiceItem);
-        $('#services-container').append(newServiceItem);
+    document.getElementById('add-service-btn').addEventListener('click', function () {
+        const container = document.getElementById('services-container');
+        const newServiceItem = document.querySelector('.service-item').cloneNode(true);
+        
+        newServiceItem.querySelectorAll('input').forEach(input => {
+            input.value = ''; // Kosongkan nilai input
+        });
+
+        container.appendChild(newServiceItem);
     });
+
 
     // Handle quantity increase
     $('#services-container').on('click', '.increase-quantity', function(e) {

@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('buying_details', function (Blueprint $table) {
-            $table->char('buying_detail_id',36)->primary();
+            $table->integer('buying_detail_id')->primary();
             $table->char('buying_invoice_id', 36);
             $table->foreign('buying_invoice_id')->references('buying_invoice_id')->on('buyings')->onDelete('cascade')->onUpdate('cascade');
             $table->string('product_name',255);
             $table->decimal('product_supplier_price',10,2);
             $table->timestamp('exp_date');
             $table->integer('quantity');
+            $table->timestamps();
         });
     }
 

@@ -64,11 +64,11 @@
                             Selling
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('buying.index') }}" class="{{ Request::is('buying*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">
                             Buying
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </div>
         </li>
@@ -84,8 +84,8 @@
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{ route('users.index') }}" class="{{ Request::is('users*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Cashier</a></li>
                     <li><a href="{{ route('customers.index') }}" class="{{ Request::is('customers*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Customer</a></li>
-                    <li><a href="{{ route('services.index') }}" class="{{ Request::is('services*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Produk</a></li>
                     <li><a href="{{ route('suppliers.index') }}" class="{{ Request::is('suppliers*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Supplier</a></li>
+                    <li><a href="{{ route('services.index') }}" class="{{ Request::is('services*') ? 'text-white bg-custom rounded active' : '' }} nav-link ps-4">Produk</a></li>
                 </ul>
             </div>
         </li>

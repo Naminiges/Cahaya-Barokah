@@ -10,6 +10,7 @@ class BuyingDetail extends Model
     use HasFactory;
 
     protected $primaryKey = 'buying_detail_id';
+    public $incrementing = true;
 
     protected $fillable = [
         'buying_detail_id',
@@ -18,10 +19,12 @@ class BuyingDetail extends Model
         'product_supplier_price',
         'exp_date',
         'quantity',
+        'updated_at',
+        'created_at',
     ];
 
-    public function buyingInvoice()
+    public function buying()
     {
-        return $this->belongsTo(Buying::class, 'buying_invoice_id');
+        return $this->belongsTo(Buying::class, 'buying_invoice_id', 'buying_invoice_id');
     }
 }

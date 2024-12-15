@@ -65,10 +65,6 @@
             </tr>
         </thead>
         <tbody>
-            @php
-            // Inisialisasi nomor urut untuk pagination
-            $no = ($services->currentPage() - 1) * $services->perPage() + 1;
-            @endphp
             @forelse ($services as $service)
             <tr data-service-id="{{ $service->id_service }}">
                 <td>{{ $service->id_service }}</td>

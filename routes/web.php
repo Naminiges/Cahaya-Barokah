@@ -26,15 +26,13 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::resource('suppliers', SupplierController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('service_transactions', ServiceTransactionController::class);
-    // Route::resource('buying', BuyingController::class);
+    Route::resource('buying', BuyingController::class);
     Route::get('service_transactions/{transaction}/pay', [ServiceTransactionController::class, 'showPayForm'])->name('service_transactions.pay');
     Route::post('service_transactions/{transaction}/pay', [ServiceTransactionController::class, 'processPayment'])->name('service_transactions.processPayment');
     Route::get('service_transactions/view/{transaction}', [ServiceTransactionController::class, 'show'])->name('service_transactions.show');
     Route::get('service_transactions/print/{transaction}', [ServiceTransactionController::class, 'print'])->name('service_transactions.print');
-    // Route::get('buying/{transaction}/pay', [BuyingController::class, 'showPayForm'])->name('buying.pay');
-    // Route::post('buying/{transaction}/pay', [BuyingController::class, 'processPayment'])->name('buying.processPayment');
-    // Route::get('buying/view/{transaction}', [BuyingController::class, 'show'])->name('buying.show');
-    // Route::get('buying/print/{transaction}', [BuyingController::class, 'print'])->name('buying.print');
+    Route::get('buying/view/{buying_invoice_id}', [BuyingController::class, 'show'])->name('buying.show');
+    Route::get('buying/print/{buying_invoice_id}', [BuyingController::class, 'print'])->name('buying.print');
 });
 
 require __DIR__.'/auth.php';

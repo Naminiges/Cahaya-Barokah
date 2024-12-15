@@ -19,79 +19,37 @@
 
         <!-- Main Content -->
         <main class="content" style="flex: 1; padding: 20px; margin: 30px 30px 30px 0; background-color: #F8F9FA; border-radius: 20px;">
-            <h3><span style="color: black;">Selling Transactions</span></h3>
+            <h3><span style="color: black;">Buying Transactions</span></h3>
             <hr>
-            <a href="{{ route('service_transactions.create') }}" class="btn btn-primary mb-3">Create Selling Transaction</a>
+            <a href="{{ route('buying.create') }}" class="btn btn-primary mb-3">Add Buying Transaction</a>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Invoice Number</th>
-                        <th>Cashier</th>
-                        <th>Customer</th>
-                        <th>Total Price</th>
-                        <th>Entry Date</th>
-                        <th>Status</th>
+                        <th>Supplier Name</th>
+                        <th>Order Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($service_transactions as $transaction)
-                    <tr data-transaction-id="{{ $transaction->transaction_id }}">
-                        <td>{{ $transaction->invoice_number }}</td>
-                        <td>{{ $transaction->cashier_name }}</td>
-                        <td>{{ $transaction->customer_name }}</td>
-                        <td>Rp {{ number_format($transaction->total_price, 2, ',', '.') }}</td>
-                        <td>{{ $transaction->entry_date }}</td>
-                        <td>{{ $transaction->status }}</td>
+                    @foreach($buyings as $buying)
+                    <tr data-transaction-id="{{ $buying->buying_invoice_id }}">
+                        <td>{{ $buying->buying_invoice_id }}</td>
+                        <td>{{ $buying->supplier_name }}</td>
+                        <td>{{ $buying->order_date }}</td>
                         <td class="actions-column">
-                            @if($transaction->status == 'pending')
-                            <a href="{{ route('service_transactions.edit', $transaction->transaction_id) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <button class="btn btn-sm btn-success pay-button" data-bs-toggle="modal" data-bs-target="#payModal" data-transaction="{{ $transaction }}">Pay</button>
-                            @elseif($transaction->status == 'completed')
-                            <a href="{{ route('service_transactions.show', $transaction->transaction_id) }}" class="btn btn-sm btn-info">View</a>
-                            @endif
+                            <a href="{{ route('buying.show', $buying->buying_invoice_id) }}" class="btn btn-sm btn-info">View</a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="d-flex justify-content-center mt-3">
-                {{ $service_transactions->links('pagination::bootstrap-5') }}
+                {{ $buyings->links('pagination::bootstrap-5') }}
             </div>
+
         </main>
     </div>
-
-    <!-- Payment Modal -->
-    <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="payModalLabel">Pembayaran</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="paymentForm" action="" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="total_amount" class="form-label">Harus Dibayar</label>
-                            <p class="form-control-static" id="total_amount">Rp. 0</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="payment_amount" class="form-label">Pembayaran</label>
-                            <input type="text" class="form-control" id="payment_amount" name="payment_amount" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="change_amount" class="form-label">Kembalian</label>
-                            <p class="form-control-static" id="change_amount">Rp. 0</p>
-                        </div>
-                        <div class="alert alert-danger d-none" id="warning-message">Pembayaran kurang dari total yang harus dibayar!</div>
-                        <button type="submit" class="btn btn-primary" id="pay_button">Bayar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         $('#payModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);

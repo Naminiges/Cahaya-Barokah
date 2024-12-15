@@ -15,8 +15,10 @@ class ServiceTransactionController extends Controller
     public function index()
     {
         // $service_transactions = ServiceTransaction::with(['technician', 'customer', 'laptop', 'warranty'])->get();
-        $service_transactions = ServiceTransaction::all(); 
-        return view('service_transactions.index', compact('service_transactions'));
+        // $service_transactions = ServiceTransaction::all(); 
+        $service_transactions = ServiceTransaction::orderBy('transaction_id', 'desc')->paginate(10);
+        $total = ServiceTransaction::count();
+        return view('service_transactions.index', compact('service_transactions','total'));
     }
 
     public function create()
