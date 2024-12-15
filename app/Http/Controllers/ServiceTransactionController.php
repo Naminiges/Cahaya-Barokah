@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 // use App\Models\Warranty;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ServiceTransactionController extends Controller
 {
@@ -36,33 +37,45 @@ class ServiceTransactionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'invoice_number' => 'required|unique:service_transactions,invoice_number',
-            // other validation rules...
-        ]);
+        DB::beginTransaction();
 
-        $cashierId = $request->cashier_id;
-        $customerId = $request->customer_id;
+        try {
+            $request->validate([
+                'invoice_number' => 'required|unique:service_transactions,invoice_number',
+                // other validation rules...
+            ]);
 
-        // Remove currency formatting from total price
-        $totalPrice = preg_replace('/[^0-9]/', '', $request->total_price); // Remove all non-numeric characters
+            $cashierId = $request->cashier_id;
+            $customerId = $request->customer_id;
 
-        $cashier = User::find($cashierId);
-        $cashierName = $cashier->name; 
-    
-        $customer = Customer::find($customerId);
-        $customerName = $customer->customer_name;
+            // Remove currency formatting from total price
+            $totalPrice = preg_replace('/[^0-9]/', '', $request->total_price); // Remove all non-numeric characters
 
-        // Create the service transaction
-        $transaction = new ServiceTransaction($request->except('total_price', 'service_id'));
-        $transaction->total_price = $totalPrice;
-        $transaction->service_ids = json_encode($request->service_id); // Convert the service_ids array to a JSON string
-        $transaction->quantities = json_encode($request->quantity); // Convert the quantities array to a JSON string
-        $transaction->cashier_name = $cashierName; 
-        $transaction->customer_name = $customerName;
-        $transaction->save();
+            $cashier = User::findOrFail($cashierId); // Fail if not found
+            $cashierName = $cashier->name;
 
-        return redirect()->route('service_transactions.index')->with('success', 'Service transaction created successfully.');
+            $customer = Customer::findOrFail($customerId); // Fail if not found
+            $customerName = $customer->customer_name;
+
+            // Create the service transaction
+            $transaction = new ServiceTransaction($request->except('total_price', 'service_id'));
+            $transaction->total_price = $totalPrice;
+            $transaction->service_ids = json_encode($request->service_id); // Convert the service_ids array to a JSON string
+            $transaction->quantities = json_encode($request->quantity); // Convert the quantities array to a JSON string
+            $transaction->cashier_name = $cashierName;
+            $transaction->customer_name = $customerName;
+            $transaction->save();
+
+            // Commit the transaction
+            DB::commit();
+
+            return redirect()->route('service_transactions.index')->with('success', 'Service transaction created successfully.');
+        } catch (\Exception $e) {
+            // Rollback the transaction if an error occurs
+            DB::rollBack();
+
+            return redirect()->back()->withErrors(['error' => 'Failed to create service transaction: ' . $e->getMessage()]);
+        }
     }
 
     public function edit($id)
