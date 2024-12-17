@@ -16,7 +16,8 @@ return new class extends Migration
             $table->integer('user_id');
             $table->enum('action',['insert', 'update', 'delete']);
             $table->string('affected_table',255);
-            $table->integer('affected_id');
+            $table->integer('affected_id')->nullable();
+            $table->string('affected_name');
             $table->text('old_value');
             $table->text('new_value');
             $table->timestamp('log_time');

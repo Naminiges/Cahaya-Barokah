@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('buying_details', function (Blueprint $table) {
-            $table->integer('buying_detail_id')->primary();
+            $table->integer('buying_detail_id')->autoIncrement()->primary();
             $table->char('buying_invoice_id', 36);
             $table->foreign('buying_invoice_id')->references('buying_invoice_id')->on('buyings')->onDelete('cascade')->onUpdate('cascade');
             $table->string('product_name',255);

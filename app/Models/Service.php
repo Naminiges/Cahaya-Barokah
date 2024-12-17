@@ -15,6 +15,7 @@ class Service extends Model
         'service_name',
         'service_price',
         'supplier_id',
+        'stock',
     ];
 
     public function supplier()

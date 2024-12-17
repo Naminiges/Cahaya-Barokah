@@ -127,21 +127,54 @@ class ServiceTransactionController extends Controller
 
     public function processPayment(Request $request, $transaction_id)
     {
-        $transaction = ServiceTransaction::find($transaction_id);
-        $totalAmount = $transaction->total_price;
-        $paymentAmount = preg_replace('/[^0-9]/', '', $request->payment_amount);
+        try {
+            DB::beginTransaction();
 
-        if ($paymentAmount >= $totalAmount) {
-            $changeAmount = $paymentAmount - $totalAmount;
-            $transaction->status = 'completed';
-            $transaction->save();
+            $transaction = ServiceTransaction::find($transaction_id);
+            $totalAmount = $transaction->total_price;
+            $paymentAmount = preg_replace('/[^0-9]/', '', $request->payment_amount);
 
+            if ($paymentAmount >= $totalAmount) {
+                $changeAmount = $paymentAmount - $totalAmount;
+                $transaction->status = 'completed';
+                $transaction->save();
+
+                DB::commit();
+
+                // Setelah transaksi berhasil, update stok
+                $serviceIds = json_decode($transaction->service_ids);
+                $quantities = json_decode($transaction->quantities);
+
+                foreach($serviceIds as $index => $serviceId) {
+                    $service = Service::find($serviceId);
+                    if ($service) {
+                        if($service->stock < $quantities[$index]) {
+                            return response()->json([
+                                'success' => false,
+                                'message' => "Insufficient stock for {$service->service_name}"
+                            ], 400);
+                        }
+                        $service->decrement('stock', $quantities[$index]);
+                    }
+                }
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Payment successful. Change: Rp. ' . number_format($changeAmount, 0, ',', '.')
+                ]);
+            } else {
+                DB::rollBack();
+                return response()->json([
+                    'success' => false, 
+                    'message' => 'Payment amount is less than the total amount.'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json([
-                'success' => true,
-                'message' => 'Payment successful. Change: Rp. ' . number_format($changeAmount, 0, ',', '.')
-            ]);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Payment amount is less than the total amount.'], 400);
+                'success' => false,
+                'message' => 'Error processing payment: ' . $e->getMessage()
+            ], 500);
         }
     }
     public function show($transaction_id)

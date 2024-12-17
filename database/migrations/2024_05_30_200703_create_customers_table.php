@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('customer_id');
             $table->string('customer_name');
             $table->string('customer_phone_number');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
         });
     }

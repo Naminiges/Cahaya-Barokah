@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('buyings', function (Blueprint $table) {
             $table->char('buying_invoice_id',36)->primary();
-            $table->timestamp('order_date');
+            $table->date('order_date');
             $table->string('supplier_name',255);
             $table->timestamps();
         });

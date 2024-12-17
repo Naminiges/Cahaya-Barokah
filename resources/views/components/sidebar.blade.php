@@ -90,7 +90,7 @@
             </div>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
+            <a href="{{ route('reports.index') }}" class="nav-link text-white">
                 @include('components.icons.svg-laporan')
                 Laporan Keuangan
             </a>

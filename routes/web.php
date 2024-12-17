@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\BuyingController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SupplierController;
-use App\Models\Buying;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
@@ -33,6 +33,10 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('service_transactions/print/{transaction}', [ServiceTransactionController::class, 'print'])->name('service_transactions.print');
     Route::get('buying/view/{buying_invoice_id}', [BuyingController::class, 'show'])->name('buying.show');
     Route::get('buying/print/{buying_invoice_id}', [BuyingController::class, 'print'])->name('buying.print');
+    Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/view', [ReportController::class, 'view'])->name('reports.view');
+    Route::get('/reports/print', [ReportController::class, 'print'])->name('reports.print');
 });
 
 require __DIR__.'/auth.php';

@@ -15,6 +15,7 @@ class Log extends Model
         'action',
         'affected_table',
         'affected_id',
+        'affected_name',
         'old_value',
         'new_value',
         'log_time',

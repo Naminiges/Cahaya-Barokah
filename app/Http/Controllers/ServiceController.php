@@ -51,14 +51,15 @@ class ServiceController extends Controller
 
     public function update(Request $request, $id_service)
     {
-        $request->validate([
+        $service = Service::findOrFail($id_service);
+
+        $validation = $request->validate([
             'service_name' => 'required',
             'service_price' => 'required|numeric',
             'stock' => 'required|integer'
         ]);
 
-        $service = Service::findOrFail($id_service);
-        $service->update($request->all());
+        $service->update($validation);
 
         return redirect()->route('services.index')->with('success', 'Service updated successfully.');
     }

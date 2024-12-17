@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -25,6 +26,9 @@ class CustomerController extends Controller
             'customer_name' => 'required',
             'customer_phone_number' => 'required|unique:customers,customer_phone_number',
         ]);
+
+        // Tambahkan kolom created_by dengan user_id yang sedang login
+        $validation['created_by'] = Auth::id();
 
         $customer = Customer::create($validation);
 

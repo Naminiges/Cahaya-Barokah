@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Buying;
 use App\Models\BuyingDetail;
+use App\Models\Service;
 use DB;
 use Illuminate\Http\Request;
 
@@ -57,11 +58,23 @@ class BuyingController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('buying.index')->with('success', 'Transaction successfully added.');
-            
+
+            // Setelah transaksi berhasil, update stok
+            foreach($request->product_name as $index => $name) {
+                $service = Service::where('service_name', $name)->first();
+                if ($service) {
+                    $service->increment('stock', $request->quantity[$index]);
+                }
+            }
+
+            return redirect()->route('buying.index')
+                ->with('success', 'Transaction successfully added.');
+                
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('error', $e->getMessage())->withInput();
+            return redirect()->back()
+                ->with('error', $e->getMessage())
+                ->withInput();
         }
     }
 
