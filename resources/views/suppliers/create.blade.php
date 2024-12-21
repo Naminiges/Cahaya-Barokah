@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Laptop</title>
+    <title>Add Suppliers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
@@ -63,9 +63,9 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="supplier_name" class="form-label">Name</label>
-                        <input type="text" name="supplier_name" id="supplier_name" class="form-control" required>
-                        @error('supplier_name')
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                        @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

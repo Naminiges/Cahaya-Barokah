@@ -31,9 +31,10 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $validation = $request->validate([
+            'supplier_id' => 'required',
             'name' => 'required',
             'contact_name' => 'required',
-            'phone' => 'required|unique:supplier,phone',
+            'phone' => 'required|unique:suppliers,phone',
             'address' => 'required'
         ]);
 
@@ -41,10 +42,10 @@ class SupplierController extends Controller
 
         if ($supplier) {
             session()->flash('success', 'supplier added successfully.');
-            return redirect(route('supplier.index'));
+            return redirect(route('suppliers.index'));
         } else {
             session()->flash('error', 'There was a problem adding the supplier.');
-            return redirect(route('supplier.create'));
+            return redirect(route('suppliers.create'));
         }
     }
 
@@ -96,17 +97,17 @@ class SupplierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy(Supplier $id)
-    // {
-    //     $supplier = Supplier::findOrFail($id);
-    //     $supplier->delete();
+    public function destroy(Supplier $id)
+    {
+        $supplier = Supplier::findOrFail($id);
+        $supplier->delete();
 
-    //     if ($supplier) {
-    //         session()->flash('success', 'supplier deleted successfully.');
-    //         return redirect(route('suppliers.index'));
-    //     } else {
-    //         session()->flash('error', 'There was a problem deleting the supplier.');
-    //         return redirect(route('suppliers.index'));
-    //     }
-    // }
+        if ($supplier) {
+            session()->flash('success', 'supplier deleted successfully.');
+            return redirect(route('suppliers.index'));
+        } else {
+            session()->flash('error', 'There was a problem deleting the supplier.');
+            return redirect(route('suppliers.index'));
+        }
+    }
 }

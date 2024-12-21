@@ -54,8 +54,6 @@
                         <th>Contact Name</th>
                         <th>Phone</th>
                         <th>Address</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -67,8 +65,6 @@
                         <td>{{ $supplier->contact_name }}</td>
                         <td>{{ $supplier->phone }}</td>
                         <td>{{ $supplier->address }}</td>
-                        <td>{{ $supplier->created_at }}</td>
-                        <td>{{ $supplier->updated_at }}</td>
                         <td class="actions-column">
                             <a href="{{ route('suppliers.edit', ['supplier' => $supplier->supplier_id]) }}" class="btn btn-sm btn-warning">Edit</a>
                         </td>
