@@ -88,7 +88,6 @@
                                 <i class="bi bi-eye-slash" id="toggleIcon"></i>
                             </button>
                         </div>
-                        <small>Leave blank if you don't want to change the password.</small>
                         @error('password')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
